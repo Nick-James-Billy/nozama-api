@@ -20,9 +20,7 @@ const show = (req, res, next) => {
 };
 
 const create = (req, res, next) => {
-  let purchase = Object.assign(req.body.purchase, {
-    _userId: req.currentUser._id,
-  });
+  let purchase = Object.assign({ _userId: req.currentUser._id }, req.body.purchase);
   Purchase.create(purchase)
     .then(purchase => res.json({ purchase }))
     .catch(err => next(err));
