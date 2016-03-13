@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 const purchaseSchema = new mongoose.Schema({
-  items: [],
+  items: Array,
   _userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
