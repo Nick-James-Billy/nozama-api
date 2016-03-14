@@ -12,5 +12,7 @@ routes.patch('/change-password/:id', 'users#changepw');
 routes.resources('users', { only: ['index', 'show'] });
 routes.resources('items');
 routes.resources('purchases');
+routes.get('/purchaseHistory', 'purchases#getPurchaseHistory');
+routes.get('/currentCart', 'purchases#getCurrentCart');
 
 module.exports = routes;
