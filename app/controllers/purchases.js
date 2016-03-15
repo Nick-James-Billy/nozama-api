@@ -3,6 +3,7 @@
 const controller = require('lib/wiring/controller');
 const models = require('app/models');
 const Purchase = models.purchase;
+const stripe = require('stripe')('sk_test_BQokikJOvBiI2HlWgH4olfQ2');
 
 const authenticate = require('./concerns/authenticate');
 
@@ -66,6 +67,15 @@ const destroy = (req, res, next) => {
     .catch(err => next(err));
 };
 
+const createCharge = (req, res, next) => {
+  stripe.charges.create({
+    amount: req.body.total,
+    currency: "usd",
+    source: req.body.stripeToken, // obtained with Stripe.js
+  }).then(charge => res.json({ charge }))
+  .catch(err => next(err));
+};
+
 module.exports = controller({
   getPurchaseHistory,
   getCurrentCart,
@@ -74,6 +84,7 @@ module.exports = controller({
   create,
   update,
   destroy,
+  createCharge,
 }, { before: [
-  { method: authenticate },
+  { method: authenticate, except: ['createCharge'] },
 ], });
