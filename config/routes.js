@@ -12,10 +12,8 @@ routes.patch('/change-password/:id', 'users#changepw');
 routes.resources('users', { only: ['index', 'show'] });
 routes.resources('items');
 routes.resources('purchases');
-<<<<<<< e089b9edd3f56ee3ec974db8ff41aea0f53b7142
 routes.get('/purchaseHistory', 'purchases#getPurchaseHistory');
 routes.get('/currentCart', 'purchases#getCurrentCart');
-=======
->>>>>>> Add resource routes for items and purchases
+
 
 module.exports = routes;
