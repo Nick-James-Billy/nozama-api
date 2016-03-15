@@ -15,4 +15,5 @@ routes.resources('purchases');
 routes.get('/purchaseHistory', 'purchases#getPurchaseHistory');
 routes.get('/currentCart', 'purchases#getCurrentCart');
 
+
 module.exports = routes;
