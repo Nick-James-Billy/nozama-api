@@ -1,10 +1,11 @@
 #!/bin/bash
 
 curl --include --request POST http://localhost:3000/purchases \
-  --header "Authorization: Token token=0TgcGh0Ze3JDDO6+4FhTVw==" \
+  --header "Authorization: Token token=zDA9E+npvWqD3IFFORykbw==" \
   --header "Content-Type: application/json" \
   --data '{
     "purchase": {
-      "items": "Some shit, another thing, something else"
+      "items": "SomeItems",
+      "completed": "true"
     }
   }'

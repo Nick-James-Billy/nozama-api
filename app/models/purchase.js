@@ -14,6 +14,11 @@ const purchaseSchema = new mongoose.Schema({
     required: true,
     default: false
 },
+  total: {
+    type: Number,
+    required: true,
+    default: 0
+},
 }, {
   timestamps: true,
 });
