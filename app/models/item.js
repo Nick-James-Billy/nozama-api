@@ -19,6 +19,13 @@ const itemSchema = new mongoose.Schema({
   imageLocation: String
 }, {
   timestamps: true,
+  toObject: {virtuals: true},
+  toJSON: {virtuals: true}
+
+});
+
+itemSchema.virtual('normalized').get(function () {
+  return this.name.replace(' ', '').toLowerCase();
 });
 
 const Item = mongoose.model('Item', itemSchema);
