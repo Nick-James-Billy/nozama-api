@@ -69,9 +69,9 @@ const destroy = (req, res, next) => {
 
 const createCharge = (req, res, next) => {
   stripe.charges.create({
-    amount: req.body.total,
+    amount: req.body.amount,
     currency: "usd",
-    source: req.body.stripeToken, // obtained with Stripe.js
+    source: req.body.source, // obtained with Stripe.js
   }).then(charge => res.json({ charge }))
   .catch(err => next(err));
 };
@@ -86,5 +86,5 @@ module.exports = controller({
   destroy,
   createCharge,
 }, { before: [
-  { method: authenticate, except: ['createCharge'] },
+  { method: authenticate },
 ], });
