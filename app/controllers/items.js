@@ -3,7 +3,7 @@
 const controller = require('lib/wiring/controller');
 const models = require('app/models');
 const Item = models.item;
-
+const normalizedName = require('../../scripts/normalizedNameModule.js');
 const authenticate = require('./concerns/authenticate');
 
 const index = (req, res, next) => {
@@ -55,12 +55,29 @@ const destroy = (req, res, next) => {
     .catch(err => next(err));
 };
 
+const searchByName = (req, res, next) => {
+
+  let searchName = normalizedName(req.body.name);
+
+  Item.find().then(items => items.forEach((item) => {
+    let name = item.name;
+    let lowerCaseName = normalizedName(name);
+
+    if (lowerCaseName.includes(searchName)) {
+        res.json({item});
+    }
+
+  })).catch(err => next(err));
+
+};
+
 module.exports = controller({
   index,
   show,
   create,
   update,
   destroy,
+  searchByName
 }, { before: [
   { method: authenticate, except: ['index', 'show'] },
 ], });
