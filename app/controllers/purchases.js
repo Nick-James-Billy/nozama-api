@@ -71,7 +71,7 @@ const createCharge = (req, res, next) => {
   stripe.charges.create({
     amount: req.body.amount,
     currency: "usd",
-    source: req.body.source, // obtained with Stripe.js
+    source: req.body.stripeToken, // obtained with Stripe.js
   }).then(charge => res.json({ charge }))
   .catch(err => next(err));
 };
