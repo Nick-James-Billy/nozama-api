@@ -21,13 +21,13 @@ const show = (req, res, next) => {
 };
 
 const getPurchaseHistory = (req, res, next) => {
-  Purchase.find({completed: true})
+  Purchase.find({completed: true, _userId: req.currentUser._id})
   .then(purchases => purchases ? res.json({ purchases }) : next())
   .catch(err => next(err));
 };
 
 const getCurrentCart = (req, res, next) => {
-  Purchase.find({completed: false})
+  Purchase.find({completed: false, _userId: req.currentUser._id })
   .then(purchases => purchases ? res.json({ purchases }) : next())
   .catch(err => next(err));
 };
