@@ -5,6 +5,8 @@ const models = require('app/models');
 const Item = models.item;
 const normalizedName = require('../../scripts/normalizedNameModule.js');
 const authenticate = require('./concerns/authenticate');
+const multer = require('./concerns/multer.js');
+
 
 const index = (req, res, next) => {
   Item.find()
@@ -56,8 +58,9 @@ const destroy = (req, res, next) => {
 };
 
 const searchByName = (req, res, next) => {
-
-  let searchName = normalizedName(req.body.name);
+let key = Object.keys(req.query);
+let search = key.toString();
+  let searchName = normalizedName(search);
 
   Item.find().then(items => items.forEach((item) => {
     let name = item.name;
@@ -79,5 +82,6 @@ module.exports = controller({
   destroy,
   searchByName
 }, { before: [
-  { method: authenticate, except: ['index', 'show'] },
+  { method: multer.single(), only: ['searchByName'] },
+  { method: authenticate, except: ['index', 'show'], },
 ], });
